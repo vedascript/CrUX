@@ -1,19 +1,21 @@
 const axios = require("axios");
 const { baseUrl } = require("../config");
 
-async function fetchCruxData(url) {
+async function fetchCruxData(url, metrics, formFactor) {
   try {
-    const response = await axios.post(
-      baseUrl,
-      { url },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        params: { key: process.env.API_KEY },
-      }
-    );
+    const payload = {
+      url,
+      metrics,
+      formFactor,
+    };
+
+    const response = await axios.post(baseUrl, payload, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      params: { key: process.env.API_KEY },
+    });
     return response.data;
   } catch (error) {
     throw new Error(

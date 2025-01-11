@@ -1,0 +1,28 @@
+.formContainer {
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 500px;
+  margin-bottom: 16px;
+}
+
+.filterContainer {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+}
+
+.addUrlContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.inputContainer {
+  display: flex;
+}
+
+.formControl {
+  max-width: 100%;
+}

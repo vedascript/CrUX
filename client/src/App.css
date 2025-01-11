@@ -1,0 +1,14 @@
+#root {
+  max-width: 1580px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.container {
+  padding: 5px;
+}
+
+.input {
+  width: 600px;
+  margin-bottom: 16px;
+}
