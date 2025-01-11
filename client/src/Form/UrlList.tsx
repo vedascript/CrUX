@@ -8,12 +8,10 @@ type UrlListProps = {
 };
 
 const UrlList: FC<UrlListProps> = ({ urls }) => {
-  const urlList = urls.filter((url) => url.trim() !== "");
-
   return (
     <>
-      {urls.length > 1 ? (
-        urlList.map((url, ind) => (
+      {urls.length ? (
+        urls.map((url, ind) => (
           <div className="inputContainer" key={`${url}.${ind}`}>
             <TextField
               key={`${url}.${ind}`}

@@ -1,4 +1,4 @@
-import { Button, CircularProgress, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 import { Dispatch, FC, SetStateAction, useState } from "react";
 import MetricsFilter from "./MetricsFilter";
@@ -18,7 +18,7 @@ type FormProps = {
   }[];
   urls: Array<string>;
   setSelectedMetrics: (metrics: Array<MetricEnum>) => void;
-  handleSearch: (urls: Array<string>, inputUrl: string) => void;
+  handleSearch: (urls: Array<string>) => void;
   addUrl: Dispatch<SetStateAction<Array<string>>>;
 };
 
@@ -42,16 +42,7 @@ const Form: FC<FormProps> = ({
   }
 
   function addUrlInput() {
-    if (!urls.length) {
-      addUrl([inputUrl, ""]);
-    } else {
-      addUrl((prevUrls) => [...prevUrls, inputUrl]);
-    }
-    setInputUrl("");
-  }
-
-  function onSearch(urls: Array<string>, inputUrl: string) {
-    handleSearch(urls, inputUrl);
+    addUrl((prevUrls) => [...prevUrls, inputUrl]);
     setInputUrl("");
   }
 
@@ -66,13 +57,13 @@ const Form: FC<FormProps> = ({
         />
 
         <Button
-          variant="outlined"
+          variant="contained"
+          color="primary"
           style={{ marginLeft: "auto", paddingBlock: "6px" }}
-          startIcon={<AddIcon />}
-          disabled={isLoading || !inputUrl.trim() || !isValidUrl}
-          onClick={addUrlInput}
+          onClick={() => handleSearch(urls)}
+          disabled={isLoading || !urls.length}
         >
-          Add URL
+          Search
         </Button>
       </div>
 
@@ -82,23 +73,23 @@ const Form: FC<FormProps> = ({
         <TextField
           label="Enter URL"
           variant="outlined"
-          value={inputUrl}
           className="input"
+          size="small"
+          value={inputUrl}
           disabled={isLoading}
           error={!isValidUrl}
-          size="small"
           onChange={(e) => handleUrlChange(e.target.value)}
         />
 
         <Button
-          variant="contained"
-          color="primary"
-          onClick={() => onSearch(urls, inputUrl)}
-          disabled={
-            isLoading || !isValidUrl || !urls.some((url) => !!url.trim())
-          }
+          variant="outlined"
+          style={{ marginLeft: "auto" }}
+          size="small"
+          startIcon={<AddIcon />}
+          disabled={isLoading || !inputUrl.trim() || !isValidUrl}
+          onClick={addUrlInput}
         >
-          {isLoading ? <CircularProgress size={24} /> : "Search"}
+          Add URL
         </Button>
       </div>
     </div>

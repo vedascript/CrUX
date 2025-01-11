@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import { Alert, Container, AlertTitle } from "@mui/material";
 
 import "./App.css";
@@ -9,8 +9,9 @@ import { metricsArray, responseMapper } from "./helpers";
 import { MetricEnum, Payload, TCruxData } from "./types";
 import DataGrid from "./DataGrid";
 import Chart from "./Chart";
+import Spinner from "./Spinner";
 
-const App = () => {
+const App: FC = () => {
   const [urlsToFetch, setUrlsToFetch] = useState<Array<string>>([]);
   const [isError, setIsError] = useState(false);
   const [selectedMetrics, setSelectedMetrics] = useState<Array<MetricEnum>>(
@@ -39,19 +40,8 @@ const App = () => {
     });
   }
 
-  function handleSearch(urls: Array<string>, inputUrl: string) {
-    let urlsToFetch: Array<string> = [];
-
-    if (!urls.length) {
-      setUrlsToFetch([inputUrl]);
-      urlsToFetch = [inputUrl];
-    } else {
-      const newUrls = [...urls, inputUrl];
-      setUrlsToFetch(newUrls);
-      urlsToFetch = newUrls.filter((url) => url.trim() !== "");
-    }
-
-    const payload: Payload = { urls: urlsToFetch, metrics: selectedMetrics };
+  function handleSearch(urls: Array<string>) {
+    const payload: Payload = { urls, metrics: selectedMetrics };
     handleApiRequest(payload);
   }
 
@@ -83,19 +73,21 @@ const App = () => {
         addUrl={setUrlsToFetch}
       />
 
-      {cruxData?.map((data) => {
-        return (
-          <DataGrid urlTitle={data.url as string}>
-            {Object.entries(data).map(([, metricData]) => {
-              return (
-                typeof metricData === "object" && (
-                  <Chart metricDetails={metricData} />
-                )
-              );
-            })}
-          </DataGrid>
-        );
-      })}
+      <Spinner isLoading={isLoading}>
+        {cruxData?.map((data) => {
+          return (
+            <DataGrid urlTitle={data.url as string}>
+              {Object.entries(data).map(([, metricData]) => {
+                return (
+                  typeof metricData === "object" && (
+                    <Chart metricDetails={metricData} />
+                  )
+                );
+              })}
+            </DataGrid>
+          );
+        })}
+      </Spinner>
     </Container>
   );
 };

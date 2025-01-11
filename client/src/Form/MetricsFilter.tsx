@@ -65,7 +65,7 @@ const MetricsFilter: FC<MetricsFilterProps> = ({
           renderValue={(selected) => renderSelectLabel(selected, metrics)}
           MenuProps={MenuProps}
           disabled={isDisabled}
-          style={{ width: "350px", marginRight: "auto" }}
+          className="input"
         >
           {metrics.map(({ label, value }) => (
             <MenuItem key={label} value={value}>
