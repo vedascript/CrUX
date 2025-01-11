@@ -20,6 +20,8 @@ const DataGrid: FC<DataGridProps> = ({ urlTitle, children }) => {
       >
         {children}
       </Grid>
+
+      <div className="divider"></div>
     </div>
   );
 };
