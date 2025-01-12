@@ -86,6 +86,16 @@ This project is a web application that fetches and displays Chrome UX (CrUX) Rep
     npm start
    ```
 
+
+## Demo Video
+
+[Watch the Demo Video on Loom](https://www.loom.com/share/0c18f5aa22e747c79695ceed86dedcd7?sid=1b0ce3f8-af1d-47c1-93b0-1ab5d33b0fba)
+
+
+## Live Link
+
+[Live Demo](https://crux-client.onrender.com)
+
    
     
   
