@@ -7,10 +7,13 @@ async function fetchCruxDetails(
   metrics: MetricEnum[]
 ): Promise<Array<CruxResponse>> {
   try {
-    const response = await axios.post("http://localhost:3000/api/crux", {
-      urls,
-      metrics,
-    });
+    const response = await axios.post(
+      "https://crux-server-sygo.onrender.com/api/crux",
+      {
+        urls,
+        metrics,
+      }
+    );
 
     return response.data;
   } catch (error) {
