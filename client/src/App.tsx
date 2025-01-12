@@ -1,19 +1,19 @@
 import { FC, useState } from "react";
-import { Alert, Container, AlertTitle } from "@mui/material";
+import { Container } from "@mui/material";
+import { ToastContainer, Bounce, toast } from "react-toastify";
 
-import "./App.css";
 import { useFetchCruxDetails } from "./hooks";
-import Form from "./Form";
-
 import { metricsArray, responseMapper } from "./helpers";
 import { MetricEnum, Payload, TCruxData } from "./types";
+import Form from "./Form";
 import DataGrid from "./DataGrid";
 import Chart from "./Chart";
 import Spinner from "./Spinner";
 
+import "./App.css";
+
 const App: FC = () => {
   const [urlsToFetch, setUrlsToFetch] = useState<Array<string>>([]);
-  const [isError, setIsError] = useState(false);
   const [selectedMetrics, setSelectedMetrics] = useState<Array<MetricEnum>>(
     () => metricsArray.map((metric) => metric.value)
   );
@@ -30,12 +30,7 @@ const App: FC = () => {
         setCruxData(mappedResponse);
       },
       onError: () => {
-        setIsError(true);
-      },
-      onSettled: () => {
-        setTimeout(() => {
-          setIsError(false);
-        }, 3500);
+        toast.error("Error fetching CRUX data");
       },
     });
   }
@@ -56,12 +51,19 @@ const App: FC = () => {
     <Container className="container">
       <h1>Chrome UX Report Viewer</h1>
 
-      {isError && (
-        <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          Failed to get CrUX details.
-        </Alert>
-      )}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce}
+      />
 
       <Form
         isLoading={isLoading}

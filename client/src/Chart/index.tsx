@@ -13,8 +13,6 @@ type ChartProps = {
 const Chart: FC<ChartProps> = ({ metricDetails }) => {
   const { metricName } = metricDetails;
 
-  // getChartSeries()
-
   return (
     <Grid size={{ xs: 2, sm: 4, md: 4 }}>
       <Card variant="outlined" style={{ textAlign: "center", padding: "5px" }}>
@@ -41,7 +39,6 @@ const Chart: FC<ChartProps> = ({ metricDetails }) => {
               valueFormatter: (value) => `${value}%`,
             },
           ]}
-          height={290}
           xAxis={[
             {
               scaleType: "linear",
@@ -78,6 +75,7 @@ const Chart: FC<ChartProps> = ({ metricDetails }) => {
           layout="horizontal"
           barLabel={({ value }) => `${value}%`}
           margin={{ left: 60 }}
+          height={270}
         />
       </Card>
     </Grid>
