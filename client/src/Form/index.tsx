@@ -20,6 +20,7 @@ type FormProps = {
   setSelectedMetrics: (metrics: Array<MetricEnum>) => void;
   handleSearch: (urls: Array<string>) => void;
   addUrl: Dispatch<SetStateAction<Array<string>>>;
+  resetData: () => void;
 };
 
 const Form: FC<FormProps> = ({
@@ -30,6 +31,7 @@ const Form: FC<FormProps> = ({
   setSelectedMetrics,
   handleSearch,
   addUrl,
+  resetData,
 }) => {
   const [inputUrl, setInputUrl] = useState<string>("");
   const [isValidUrl, setIsValidUrl] = useState<boolean>(true);
@@ -57,13 +59,24 @@ const Form: FC<FormProps> = ({
         />
 
         <Button
+          variant="outlined"
+          color="primary"
+          className="actionButton"
+          onClick={resetData}
+          disabled={isLoading || !urls.length}
+        >
+          <span className="actionText">Reset</span>
+        </Button>
+
+        <Button
           variant="contained"
           color="primary"
+          className="actionButton"
           style={{ marginLeft: "auto", paddingBlock: "6px" }}
           onClick={() => handleSearch(urls)}
           disabled={isLoading || !urls.length}
         >
-          Search
+          <span className="actionText">Search</span>
         </Button>
       </div>
 
@@ -88,6 +101,7 @@ const Form: FC<FormProps> = ({
           startIcon={<AddIcon />}
           disabled={isLoading || !inputUrl.trim() || !isValidUrl}
           onClick={addUrlInput}
+          className="addButton"
         >
           Add URL
         </Button>

@@ -47,6 +47,12 @@ const App: FC = () => {
     handleApiRequest(payload);
   }
 
+  function handleResetData() {
+    setCruxData([]);
+    setUrlsToFetch([]);
+    setSelectedMetrics(metricsArray.map((metric) => metric.value));
+  }
+
   return (
     <Container className="container">
       <h1>Chrome UX Report Viewer</h1>
@@ -73,6 +79,7 @@ const App: FC = () => {
         setSelectedMetrics={onFilterChange}
         handleSearch={handleSearch}
         addUrl={setUrlsToFetch}
+        resetData={handleResetData}
       />
 
       <Spinner isLoading={isLoading}>

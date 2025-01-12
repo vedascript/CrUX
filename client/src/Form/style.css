@@ -30,3 +30,15 @@
 .input {
   width: 380px;
 }
+
+.actionText {
+  font-size: 12px;
+}
+
+.actionButton {
+  padding-block: 6px !important;
+}
+
+.addButton {
+  padding-inline: 12px !important;
+}
